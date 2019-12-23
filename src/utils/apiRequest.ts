@@ -5,7 +5,7 @@ const api = axios.create({
   timeout: 5000,
 });
 
-export default function apireq(method:Method, url:string, data:({string:any} | null) = null)
+export default function apireq(method:Method, url:string, data:({[key:string]:any} | null) = null)
   : AxiosPromise<any> {
   const headers = {
     'Content-Type': 'application/json',

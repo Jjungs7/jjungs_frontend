@@ -1,18 +1,28 @@
 <template>
   <div class="container mx-auto p-4 md:p-8">
-    <h1 class="text-xl md:text-3xl pt-1 pb-2 md:pb-4 md:pt-3 border-b">
+    <h1 class="text-xl md:text-3xl pt-1 md:pt-3">
       {{ post.Title }}
     </h1>
-    <viewer class="test" :value="post.Body"/>
+    <p class="float-right text-blue-500 cursor-pointer" @click="toComments">댓글 보기</p>
+    <PostMetadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
+    <viewer :value="post.Body"/>
+    <!--div>
+      TODO:
+      <div id="disqus_thread"></div>
+    </div-->
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import apireq from '@/utils/apiRequest';
+import PostMetadata from '@/components/PostMetadata.vue';
 
-@Component
+@Component({
+  components: { PostMetadata },
+})
 export default class Post extends Vue {
+  // states
   post = {
     Board: null,
     BoardID: 0,
@@ -24,8 +34,15 @@ export default class Post extends Vue {
     PostTags: [],
     Title: '',
     UpdatedAt: '0',
+    hits: 0,
   };
 
+  // methods
+  toComments() {
+    alert('댓글기능을 곧 추가하겠습니다!');
+  }
+
+  // lifecycle
   created() {
     apireq('GET', `/post/${this.$route.params.post_id}`)
       .then((res) => {
@@ -35,8 +52,8 @@ export default class Post extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 .tui-editor-contents {
-  font-size: 18px;
+  font-size: 1.1rem;
 }
 </style>

@@ -1,7 +1,12 @@
-import HelloWorld from '@/pages/HelloWorld.vue';
-import CreatePost from '@/pages/admin/CreatePost.vue';
-
 export default [
-  { path: '', name: 'admin', component: HelloWorld },
-  { path: '/new-post', name: 'admin', component: CreatePost },
+  {
+    path: '',
+    name: 'admin',
+    component: () => import(/* webpackChunkName: "mainAdmin" */ '@/pages/admin/Main.vue'),
+  },
+  {
+    path: '/new-post',
+    name: 'newPost',
+    component: () => import(/* webpackChunkName: "postPost" */ '@/pages/admin/PostPost.vue'),
+  },
 ];

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HelloWorld from '@/pages/HelloWorld.vue';
+import Main from '@/pages/Main.vue';
 import blog from '@/routes/blog';
 import admin from '@/routes/admin';
 
@@ -14,7 +14,7 @@ const withPrefix = (prefix: string, routes: any[]): any[] => routes.map((route) 
 export default new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', name: 'hello', component: HelloWorld },
+    { path: '/', name: 'main', component: Main },
     ...withPrefix('/blog', blog),
     ...withPrefix('/admin', admin),
   ],
