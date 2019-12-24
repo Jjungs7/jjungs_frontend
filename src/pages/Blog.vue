@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto">
-    <h1 class="text-3xl ml-8 mt-2 md:mt-4">블로그</h1>
-    <ul class="flex justify-center mt-2">
+  <div class="container px-4 md:mx-auto mb-4 md:mb-8">
+    <h1 class="text-2xl md:text-3xl ml-6 mt-2 mb-2 md:mt-4">블로그</h1>
+    <ul class="flex justify-center mt-2 border-t pt-3">
       <li class="mr-1 md:mr-2" v-for="board of boards" :key="`nav-${board.ID}`">
         <button class="inline-block py-1 px-3 text-sm md:text-lg"
                 :class="active === board.ID ? 'text-gray-800' : 'text-gray-500'"
@@ -9,7 +9,7 @@
       </li>
     </ul>
     <section class="px-2 py-4 border-b" v-for="post of posts" :key="`section-${post.ID}`">
-      <h3 class="text-lg md:text-xl md:font-medium">
+      <h3 class="text-lg md:text-xl">
         <router-link :to="{name:'post', params:{post_id:post.ID}}">
           {{ post.Title }}
         </router-link>
@@ -61,9 +61,9 @@ export default class Blog extends Vue {
         this.boards = [all, ...res.data.data];
       });
 
-    apireq('GET', '/board/os')
+    apireq('GET', '/post')
       .then((res) => {
-        this.posts = res.data.data.Posts;
+        this.posts = res.data.data;
       });
   }
 }

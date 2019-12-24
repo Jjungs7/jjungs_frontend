@@ -15,6 +15,7 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', name: 'main', component: Main },
+    { path: '/me', name: 'me', component: () => import(/* webpackChunkName: "me" */'@/pages/Me.vue') },
     ...withPrefix('/blog', blog),
     ...withPrefix('/admin', admin),
   ],

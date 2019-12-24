@@ -1,28 +1,25 @@
 <template>
-  <div class="container mx-auto">
-    <h1 class="text-3xl ml-8 mt-2 md:mt-4">Me</h1>
-    <h2>Profile & Education</h2>
-    <p>양정일(Jeongil Yang)</p>
-    <p>만 {{ myAge() }}세, 남</p>
-    <h2>Experience & Skills</h2>
-    <h2>Projects</h2>
-    <h2>Qualifications</h2>
+  <div class="absolute inset-0 -z-30 min-h-screen">
+    <div class="main bg-cover absolute inset-0 -z-30"></div>
+    <div class="layer bg-black opacity-75 absolute inset-0 -z-20"></div>
+    <div class="flex column inset-0 items-center text-center justify-center min-h-full
+                -z-10">
+      <h1 class="text-2xl md:text-4xl text-white font-semibold pb-40">
+        Welcome to jjung's land!
+      </h1>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script>
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Main extends Vue {
-  myAge(): number {
-    const ageDifMs = Date.now() - (new Date('1995-11-05')).getTime();
-    const ageDate = new Date(ageDifMs);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-  }
-}
+export default class Main extends Vue { }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.main {
+  background-image: url('/background.jpg');
+}
 </style>
