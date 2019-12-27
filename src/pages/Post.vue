@@ -24,7 +24,6 @@ import PostMetadata from '@/components/PostMetadata.vue';
 export default class Post extends Vue {
   // states
   post = {
-    Board: null,
     BoardID: 0,
     Body: 'loading...',
     CreatedAt: '0',
@@ -44,9 +43,10 @@ export default class Post extends Vue {
 
   // lifecycle
   created() {
-    apireq('GET', `/post/${this.$route.params.post_id}`)
+    apireq('GET', `/post/${this.$route.params.post_id}?type=post`)
       .then((res) => {
         this.post = res.data.data;
+        console.log(res);
       });
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div :class="classes">
     <font-awesome-icon class="icon" :icon="['far', 'eye']"/>
-    <span class="inline-block ml-1 w-16">{{ 0 }}</span>
+    <span class="inline-block ml-1 w-16">{{ post.Hits }}</span>
     <font-awesome-icon class="icon" :icon="['fas', 'edit']"/>
     <span class="inline-block ml-1 w-20">{{ parseTime(post.CreatedAt) }}</span>
     <span v-if="isUpdated(post.CreatedAt, post.UpdatedAt)">
@@ -31,7 +31,7 @@ export default class PostMetadata extends Vue {
       PostTags: [],
       Title: '',
       UpdatedAt: '0',
-      hits: 0,
+      Hits: 0,
     },
   }) private post!: any;
 
