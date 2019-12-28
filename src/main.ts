@@ -16,8 +16,8 @@ import './assets/css/index.css';
 library.add(faInstagram, faEnvelope, faGithub, faEye, fasEdit, farEdit);
 
 Vue.config.productionTip = false;
-Vue.component('editor', Editor);
-Vue.component('viewer', Viewer);
+Vue.component('editor', () => import(/* webpackChunkName: "editor" */'@toast-ui/vue-editor').then(res => res.Editor));
+Vue.component('viewer', () => import(/* webpackChunkName: "editor" */'@toast-ui/vue-editor').then(res => res.Viewer));
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({

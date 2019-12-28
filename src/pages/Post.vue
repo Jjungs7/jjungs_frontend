@@ -4,7 +4,7 @@
       {{ post.Title }}
     </h1>
     <p class="float-right text-blue-500 cursor-pointer" @click="toComments">댓글 보기</p>
-    <PostMetadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
+    <post-metadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
     <viewer :value="post.Body"/>
     <!--div>
       TODO:
@@ -19,11 +19,13 @@ import apireq from '@/utils/apiRequest';
 import PostMetadata from '@/components/PostMetadata.vue';
 
 @Component({
-  components: { PostMetadata },
+  components: {
+    'post-metadata': PostMetadata,
+  },
 })
 export default class Post extends Vue {
   // states
-  post = {
+  post: myPost = {
     BoardID: 0,
     Body: 'loading...',
     CreatedAt: '0',
@@ -33,7 +35,7 @@ export default class Post extends Vue {
     PostTags: [],
     Title: '',
     UpdatedAt: '0',
-    hits: 0,
+    Hits: 0,
   };
 
   // methods

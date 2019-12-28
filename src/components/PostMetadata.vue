@@ -1,9 +1,9 @@
 <template>
   <div :class="classes">
     <font-awesome-icon class="icon" :icon="['far', 'eye']"/>
-    <span class="inline-block ml-1 w-16">{{ post.Hits }}</span>
+    <span class="inline-block ml-1 w-12">{{ post.Hits }}</span>
     <font-awesome-icon class="icon" :icon="['fas', 'edit']"/>
-    <span class="inline-block ml-1 w-20">{{ parseTime(post.CreatedAt) }}</span>
+    <span class="inline-block ml-1 w-16">{{ parseTime(post.CreatedAt) }}</span>
     <span v-if="isUpdated(post.CreatedAt, post.UpdatedAt)">
       <font-awesome-icon class="icon" :icon="['far', 'edit']"/>
       <span class="ml-1">{{ parseTime(post.UpdatedAt) }}</span>

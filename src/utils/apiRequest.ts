@@ -6,17 +6,17 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export default function apireq(method:Method, url:string, data:({[key:string]:any} | null) = null)
+export default function apireq(method:Method, path:string, data:({[key:string]:any} | null) = null)
   : AxiosPromise<any> {
   const headers = {
     'Content-Type': 'application/json',
     Authorization: '',
   };
-  const token: string|null = localStorage.getItem('accessToken');
+  const token: string|null = localStorage.getItem('auth.accessToken');
   if (token) headers.Authorization = `Bearer ${token}`;
 
   return api({
-    url,
+    url: path,
     method,
     data,
     headers,

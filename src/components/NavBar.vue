@@ -10,7 +10,7 @@
     </ul>
     <ul class="flex flex-1 flex-end">
       <li class="mt-2 mb-2 mr-3 min-w-0
-                 md:mr-5 md:mt-4 md:mb-2" v-for="link of links" :key="link.name">
+                 md:mr-5 md:mt-3 md:mb-2" v-for="link of links" :key="link.name">
         <a :target="link.target" :href="link.link">
           <font-awesome-icon :icon="link.icon"/>
         </a>
@@ -65,7 +65,7 @@ export default class NavBar extends Vue {
     const accessToken = localStorage.getItem('auth.accessToken');
     const expiresAt = localStorage.getItem('auth.expiresAt');
 
-    return accessToken && expiresAt && parseInt(expiresAt, 10) < (new Date()).getTime();
+    return accessToken && expiresAt && parseInt(expiresAt, 10) > (new Date()).getTime();
   }
 }
 </script>

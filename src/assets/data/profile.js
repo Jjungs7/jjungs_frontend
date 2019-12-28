@@ -33,6 +33,11 @@ export default [
     name: 'Experience & Skills',
     items: [
       {
+        title: 'Mobile embedded lab',
+        subtitle: 'Internship / Jul, 2018 ~ Aug, 2018',
+        description: 'mobed lab in Yonsei University, developed a tool for easier management of BLE beacons',
+      },
+      {
         title: 'Market Designers, Inc.',
         subtitle: 'Internship / Sep, 2018 ~ Jan, 2019',
         description: 'Backend, frontend developer for <a class="link" href="https://da24.wematch.com">da24</a>',
