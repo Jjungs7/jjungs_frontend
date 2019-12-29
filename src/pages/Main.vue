@@ -5,7 +5,7 @@
     <div class="flex column inset-0 items-center text-center justify-center min-h-full
                 -z-10">
       <h1 class="text-2xl md:text-4xl text-white font-semibold pb-40">
-        Welcome to jjung's land!
+        환영합니다!
       </h1>
     </div>
   </div>

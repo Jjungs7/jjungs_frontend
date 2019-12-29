@@ -19,5 +19,6 @@ export default new VueRouter({
     { path: '/me', name: 'me', component: () => import(/* webpackChunkName: "me" */'@/pages/Me.vue') },
     admin,
     ...withPrefix('/blog', blog),
+    { path: '*', component: () => import(/* webpackChunkName: "notfound" */'@/pages/404.vue') },
   ],
 });

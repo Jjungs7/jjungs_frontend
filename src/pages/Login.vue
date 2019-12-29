@@ -5,7 +5,8 @@
     </label>
     <div class="flex items-center">
       <input class="appearance-none bg-transparent border w-full text-gray-700 mr-3 py-2 px-3
-       leading-tight focus:outline-none" type="text" placeholder="Password" id="pw" v-model="pw">
+       leading-tight focus:outline-none"
+             type="password" placeholder="password" id="pw" v-model="pw">
       <button class="flex-shrink-0 bg-blue-600 hover:bg-blue-800
       text-sm text-white py-2 px-3 rounded"
               type="submit">
