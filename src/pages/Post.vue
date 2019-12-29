@@ -1,9 +1,10 @@
 <template>
-  <div class="container mx-auto p-4 md:p-8">
-    <h1 class="text-xl md:text-3xl pt-1 md:pt-3">
+  <div class="container mx-auto px-6 py-4 md:px-8 md:py-4">
+    <h1 class="text-3xl font-medium md:text-4xl pt-1 md:pt-3">
       {{ post.Title }}
     </h1>
-    <p class="float-right text-blue-500 cursor-pointer" @click="toComments">댓글 보기</p>
+    <p class="text-sm md:text-base float-right text-blue-500 cursor-pointer"
+       @click="toComments">댓글 보기</p>
     <post-metadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
     <viewer :value="post.Body"/>
     <!--div>
@@ -55,6 +56,20 @@ export default class Post extends Vue {
 
 <style>
 .tui-editor-contents {
-  font-size: 1.1rem;
+  font-size: 1rem;
+}
+
+.tui-editor-contents pre {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .tui-editor-contents {
+    font-size: 1.1rem;
+  }
+
+  .tui-editor-contents pre {
+    font-size: 0.95rem;
+  }
 }
 </style>

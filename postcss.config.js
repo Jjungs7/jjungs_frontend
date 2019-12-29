@@ -6,8 +6,20 @@ const purgecss = postcssPurgecss({
   content: [
     './public/**/*.html',
     './src/**/*.vue',
+    './src/**/*.ts',
   ],
-  whitelistPatterns: [/-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-exact)-active$/],
+  whitelistPatterns: [
+    /-(leave|enter|appear)(|-(to|from|active))$/,
+    /^(?!(|.*?:)cursor-move).+-move$/,
+    /^router-link(|-exact)-active$/,
+    /^(tui.*|te.*|CodeMirror.*|hljs.*|code|pre)/,
+  ],
+  whitelistPatternsChildren: [
+    /-(leave|enter|appear)(|-(to|from|active))$/,
+    /^(?!(|.*?:)cursor-move).+-move$/,
+    /^router-link(|-exact)-active$/,
+    /^(tui.*|te.*|CodeMirror.*|hljs.*|code|pre)/,
+  ],
   defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
 });
 
