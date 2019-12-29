@@ -22,7 +22,7 @@ import GetPosts from '@/components/GetPosts.vue';
     GetPosts,
     Authenticated,
     PostMetadata,
-    'my-button': MyButton,
+    MyButton,
   },
 })
 export default class ManagePosts extends Vue {

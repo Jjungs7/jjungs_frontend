@@ -1,28 +1,10 @@
 <template>
   <div>
     <div class="text-right">
-      <my-button class="my-3" @clicked="showNewBoard = !showNewBoard">게시판 추가</my-button>
+      <my-button class="mt-3" @click="showNewBoard = !showNewBoard">게시판 추가</my-button>
     </div>
     <div class="mb-6 pb-4 border-b" v-if="showNewBoard">
-      <div>
-        <label for="name">게시판명</label>
-        <input type="text" id="name" v-model="boardInput.name"/>
-      </div>
-      <div class="mt-2">
-        <label for="url">링크</label>
-        <input type="text" id="url" v-model="boardInput.url"/>
-      </div>
-      <label for="read">읽기 권한</label>
-      <select class="block w-full bg-gray-200 border
-       border-gray-200 text-gray-700 py-2 px-4 rounded leading-tight
-       focus:outline-none focus:bg-white focus:border-gray-500" id="read"
-              v-model="boardInput.read">
-        <option>PUBLIC</option>
-        <option>JJUNGS</option>
-      </select>
-      <div class="text-right">
-        <my-button class="mt-2" @clicked="createBoard">저장</my-button>
-      </div>
+      <board-form :isEdit="false" text1="저장" @click="createBoard"/>
     </div>
     <table class="table-fixed w-full">
       <tr class="border-b w-full cursor-pointer"
@@ -36,26 +18,8 @@
         </div>
       </tr>
     </table>
-    <div>
-      <label for="eid">아이디</label>
-      <input type="text" id="eid" v-model="editBoardInput.name"/>
-    </div>
-    <div>
-      <label for="ename">게시판명</label>
-      <input type="text" id="ename" v-model="editBoardInput.name"/>
-    </div>
-    <div class="mt-2">
-      <label for="eurl">링크</label>
-      <input type="text" id="eurl" v-model="editBoardInput.url"/>
-    </div>
-    <label for="eread">읽기 권한</label>
-    <select class="block w-full bg-gray-200 border
-       border-gray-200 text-gray-700 py-2 px-4 rounded leading-tight
-       focus:outline-none focus:bg-white focus:border-gray-500" id="eread"
-            v-model="editBoardInput.read">
-      <option>PUBLIC</option>
-      <option>JJUNGS</option>
-    </select>
+    <board-form class="mt-4" text1="수정" text2="삭제"
+                :board="activeBoard" @click="updateBoard" @clickDelete="deleteBoard"/>
   </div>
 </template>
 
@@ -63,17 +27,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import MyButton from '@/components/MyButton.vue';
 import apireq from '@/utils/apiRequest';
-
-export declare type myBoardForm = {
-  id: number,
-  name: string,
-  url: string,
-  read: string,
-};
+import BoardForm, { myBoardForm } from '@/components/BoardForm.vue';
 
 @Component({
   components: {
     MyButton,
+    BoardForm,
   },
 })
 export default class ManageBoards extends Vue {
@@ -81,52 +40,63 @@ export default class ManageBoards extends Vue {
 
   showNewBoard: boolean = false;
 
-  boardInput: myBoardForm = {
-    id: 0,
-    name: '',
-    url: '',
-    read: 'PUBLIC',
+  activeBoard: myBoard = {
+    CreatedAt: '',
+    ID: 0,
+    Name: '',
+    Order: 0,
+    ReadPermission: '',
+    UpdatedAt: '',
+    URL: '',
   };
 
-  editBoardInput: myBoardForm = {
-    id: 0,
-    name: '',
-    url: '',
-    read: 'PUBLIC',
-  };
-
-  createBoard() {
-    apireq('post', '/admin/board', this.boardInput)
+  createBoard(formInput: myBoardForm.form) {
+    apireq('post', '/admin/board', formInput)
       .then((res) => {
         if (!res.data.data) {
           console.error(res.data.error);
           return;
         }
 
-        this.$router.push({
-          path: '/admin/board',
-        });
+        const board: myBoard = res.data.data;
+        this.boards.push(board);
       });
   }
 
   changeEditInput(board: myBoard) {
-    this.editBoardInput.id = board.ID;
-    this.editBoardInput.name = board.Name;
-    this.editBoardInput.url = board.URL;
-    this.editBoardInput.read = board.ReadPermission;
+    this.activeBoard = board;
   }
 
-  updateBoard() {
-    apireq('put', '/admin/board', this.editBoardInput)
+  updateBoard(formInput: myBoardForm.form) {
+    apireq('put', '/admin/board', formInput)
       .then((res) => {
         if (!res.data.data) {
           console.error(res.data.error);
           return;
         }
 
-        this.$router.push({
-          path: '/admin/board',
-        });
+        const editBoard: myBoard = res.data.data;
+        const item = this.boards.find(board => board.ID === formInput.id);
+        if (item) this.boards.splice(this.boards.indexOf(item), 1, editBoard);
+      });
+  }
+
+  deleteBoard(boardId: number) {
+    // eslint-disable-next-line no-restricted-globals,no-alert
+    if (!confirm('정말로 삭제하시겠습니까?')) return;
+
+    apireq('delete', '/admin/board', {
+      id: boardId,
+    })
+      .then((res) => {
+        if (!res.data.data) {
+          console.error(res.data.error);
+          return;
+        }
+
+        const item = this.boards.find(board => board.ID === boardId);
+        if (item) this.boards.splice(this.boards.indexOf(item), 1);
+        [this.activeBoard] = this.boards;
       });
   }
 
@@ -134,6 +104,7 @@ export default class ManageBoards extends Vue {
     apireq('get', '/board')
       .then((res) => {
         this.boards = res.data.data;
+        [this.activeBoard] = this.boards;
       });
   }
 }

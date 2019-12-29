@@ -27,8 +27,8 @@
             height="600px"
             :previewStyle="editorPreviewStyle"
             v-model="inputPost.body"/>
-    <my-button class="my-3" @clicked="doPost">제출</my-button>
-    <my-button class="my-3" @clicked="cancel">취소</my-button>
+    <my-button class="my-3" @click="doPost">제출</my-button>
+    <my-button class="my-3" @click="cancel">취소</my-button>
   </div>
 </template>
 
@@ -94,6 +94,7 @@ export default class PostPost extends Vue {
         this.$router.push({ name: 'post', params: { post_id: result.data.data.ID } });
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error(err);
       });
   }
@@ -104,6 +105,7 @@ export default class PostPost extends Vue {
         this.$router.push({ name: 'post', params: { post_id: result.data.data.ID } });
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error(err);
       });
   }
@@ -120,6 +122,7 @@ export default class PostPost extends Vue {
     apireq('get', '/board')
       .then((res) => {
         this.boards = res.data.data;
+        this.inputPost.boardId = this.boards[0].ID;
       });
 
     if (this.$route.params.postId) {

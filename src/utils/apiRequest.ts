@@ -1,7 +1,7 @@
 import axios, { AxiosPromise, Method } from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://api.jjungs.kr',
+  baseURL: 'https://api.jjungs.kr',
   timeout: 5000,
   withCredentials: true,
 });

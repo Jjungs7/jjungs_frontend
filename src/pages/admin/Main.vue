@@ -36,6 +36,10 @@ export default class MainAdmin extends Vue {
     },
   ];
 
+  created() {
+    if (this.$route.path.includes(this.tabs[1].route)) this.selected = 1;
+  }
+
   isSelectedLi(id: number): string {
     if (this.selected === id) {
       return '-mb-px mr-1';

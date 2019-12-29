@@ -12,12 +12,12 @@
           {{ post.Description }}
         </router-link>
       </p>
-      <my-button class="mt-2" v-if="isAdmin()" @clicked="$emit('edit-post', post.ID)">수정</my-button>
-      <my-button v-if="isAdmin()" @clicked="deletePost(post.ID)">삭제</my-button>
+      <my-button class="mt-2" v-if="isAdmin()" @click="$emit('edit-post', post.ID)">수정</my-button>
+      <my-button v-if="isAdmin()" @click="deletePost(post.ID)">삭제</my-button>
     </div>
     <div class="text-center mt-4">
       <my-button v-for="button of buttons" :key="button.name"
-                 @clicked="getPage(button.engName)"
+                 @click="getPage(button.engName)"
                  :enabled="isEnabled(button.engName)">
         {{ button.name }}
       </my-button>
@@ -93,6 +93,9 @@ export default class GetPosts extends Vue {
   }
 
   deletePost(postId: number) {
+    // eslint-disable-next-line no-restricted-globals,no-alert
+    if (!confirm('정말로 삭제하시겠습니까?')) return;
+
     const item = this.posts.find(post => post.ID === postId);
     if (item) this.posts.splice(this.posts.indexOf(item), 1);
     this.$emit('delete-post', postId);
