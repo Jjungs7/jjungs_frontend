@@ -8,6 +8,7 @@ const purgecss = postcssPurgecss({
     './src/**/*.vue',
   ],
   whitelistPatterns: [/-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-exact)-active$/],
+  defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
 });
 
 module.exports = {

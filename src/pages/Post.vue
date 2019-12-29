@@ -48,7 +48,6 @@ export default class Post extends Vue {
     apireq('GET', `/post/${this.$route.params.post_id}?type=post`)
       .then((res) => {
         this.post = res.data.data;
-        console.log(res);
       });
   }
 }

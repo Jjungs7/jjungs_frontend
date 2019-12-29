@@ -2,11 +2,11 @@
   <div class="container px-4 md:mx-auto mb-4 md:mb-8">
     <h1 class="text-2xl md:text-3xl ml-6 mt-2 mb-2 md:mt-4">Me</h1>
     <div class="category" v-for="category of categories" :key="category.name">
-      <h2 class="text-lg border-t pt-2 md:text-2xl md:pt-5 font-semibold">
+      <h2 class="text-lg border-t pt-2 md:text-2xl md:pt-4 font-semibold">
         {{ category.name }}
       </h2>
       <div v-for="(item, idx) of category.items" :key="idx">
-        <h3 class="text-base mt-2 md:text-lg md:mt-3 font-medium">
+        <h3 class="text-base mt-3 md:text-lg md:mt-4 font-medium">
           {{ item.title }}
         </h3>
         <h4 class="text-sm md:text-base">
@@ -47,6 +47,6 @@ export default class Me extends Vue {
 }
 
 .category:not(:first-of-type) {
-  @apply pt-2;
+  @apply pt-4;
 }
 </style>

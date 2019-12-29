@@ -3,7 +3,6 @@ import 'tui-editor/dist/tui-editor.css';
 import 'tui-editor/dist/tui-editor-contents.css';
 import 'codemirror/lib/codemirror.css';
 import 'highlight.js/styles/github.css';
-import { Editor, Viewer } from '@toast-ui/vue-editor';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEdit as fasEdit } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
