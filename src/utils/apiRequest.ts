@@ -6,7 +6,24 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export default function apireq(method:Method, path:string, data:({[key:string]:any} | null) = null)
+export function fileUpload(fileName:string, data: FormData)
+  : AxiosPromise<any> {
+  const headers = {
+    'Content-Type': 'multipart/form-data',
+    Authorization: '',
+  };
+  const token: string|null = localStorage.getItem('auth.accessToken');
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  return api({
+    url: `/admin/file/${fileName}`,
+    method: 'POST',
+    data,
+    headers,
+  });
+}
+
+export function apireq(method:Method, path:string, data:({[key:string]:any} | null) = null)
   : AxiosPromise<any> {
   const headers = {
     'Content-Type': 'application/json',

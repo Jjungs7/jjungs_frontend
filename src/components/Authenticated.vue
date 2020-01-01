@@ -24,7 +24,7 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import apireq from '../utils/apiRequest';
+import { apireq } from '../utils/apiRequest';
 import isAdmin from '@/utils/isAdmin';
 
 @Component

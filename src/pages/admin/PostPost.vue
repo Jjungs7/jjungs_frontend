@@ -23,19 +23,50 @@
       <label for="tags">태그</label>
       <input type="text" id="tags" v-model="inputPost.tags"/>
     </div>
+    <div class="text-right">
+      <my-button class="my-3" @click="showFileUpload = !showFileUpload">파일 업로드</my-button>
+    </div>
+    <div class="my-2 pb-2 border-b" v-if="showFileUpload">
+      <div class="mt-2">
+        <label for="uploadName">파일명</label>
+        <input type="text" id="uploadName" v-model="uploadName">
+      </div>
+      <div class="mt-2">
+        <label for="file">파일</label>
+        <input type="file" id="file" @change="changeFile($event)"/>
+      </div>
+      <div class="mt-2">
+        <label>업로드 된 파일</label>
+        <ul class="list-disc px-6 my-1">
+          <li v-for="(fname, idx) of uploadedFiles" :key="`file-${idx}`">
+            <div class="inline-block text-blue-600 cursor-pointer pr-16 py-1"
+                 @click="copyToClipboard($event)">
+              {{ fname }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="text-right mt-2">
+        <my-button @click="showFileUpload = false">취소</my-button>
+        <my-button @click="uploadFile">업로드</my-button>
+      </div>
+    </div>
     <editor :options="editorOptions"
             height="600px"
             :previewStyle="editorPreviewStyle"
             v-model="inputPost.body"/>
-    <my-button class="my-3" @click="doPost">제출</my-button>
-    <my-button class="my-3" @click="cancel">취소</my-button>
+    <div class="text-right">
+      <my-button class="my-3" @click="cancel">취소</my-button>
+      <my-button class="my-3" @click="doPost">제출</my-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import VueClipboard from 'vue-clipboard2';
 import MyButton from '@/components/MyButton.vue';
-import apireq from '@/utils/apiRequest';
+import { apireq, fileUpload } from '@/utils/apiRequest';
 
 declare type myInputPost = {
   id: number,
@@ -46,6 +77,7 @@ declare type myInputPost = {
   description: string,
 };
 
+Vue.use(VueClipboard);
 @Component({
   components: {
     MyButton,
@@ -64,7 +96,15 @@ export default class PostPost extends Vue {
 
   boards: myBoard[] = [];
 
-  editorPreviewStyle: string = 'vertical';
+  uploadedFiles: string[] = [];
+
+  showFileUpload = false;
+
+  file?: File;
+
+  uploadName = '';
+
+  editorPreviewStyle = 'vertical';
 
   editorOptions = {
     language: 'ko_KR',
@@ -80,6 +120,48 @@ export default class PostPost extends Vue {
     } else {
       this.editorPreviewStyle = 'vertical';
     }
+  }
+
+  changeFile(event: { target: HTMLInputElement }) {
+    const node = event.target;
+    if (!node || !node.files || node.files.length <= 0) return;
+    [this.file] = node.files;
+    this.uploadName = this.uploadName || this.file.name;
+  }
+
+  uploadFile() {
+    if (!this.file) return;
+    this.uploadName = this.uploadName || this.file.name;
+    if (this.uploadName === '') {
+      alert('파일 이름이 없습니다(bug)');
+      return;
+    }
+
+    const data = new FormData();
+    data.append('file', this.file);
+    if (this.file.size > (32 * 1024 * 1024)) {
+      alert('파일은 32MB 까지 업로드 가능합니다');
+      return;
+    }
+
+    fileUpload(this.uploadName, data)
+      .then((res) => {
+        this.uploadedFiles.push(res.data.data);
+      });
+  }
+
+  copyToClipboard(event: {target: HTMLDivElement}) {
+    const imgExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    const fileName = `https://api.jjungs.kr/file/${event.target.innerText}`;
+    const isImg = imgExtensions.some(ss => fileName.toLowerCase().includes(ss));
+    let text = '';
+
+    if (isImg) text = `![](${fileName})`;
+    else text = `[](${fileName})`;
+    this.$copyText(text)
+      .then((res) => {
+        alert(`Successfully copied as ${isImg ? 'img' : 'file'}`);
+      });
   }
 
   doPost() {
@@ -147,10 +229,6 @@ export default class PostPost extends Vue {
 </script>
 
 <style scoped>
-button {
-  float: right;
-}
-
 input {
   display: block;
   @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full;

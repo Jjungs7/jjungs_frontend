@@ -31,7 +31,7 @@ import {
 } from 'vue-property-decorator';
 import MyButton from '@/components/MyButton.vue';
 import PostMetadata from '@/components/PostMetadata.vue';
-import apireq from '@/utils/apiRequest';
+import { apireq } from '@/utils/apiRequest';
 import checkAdmin from '@/utils/isAdmin';
 
 @Component({

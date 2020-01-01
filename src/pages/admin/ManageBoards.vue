@@ -26,7 +26,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import MyButton from '@/components/MyButton.vue';
-import apireq from '@/utils/apiRequest';
+import { apireq } from '@/utils/apiRequest';
 import BoardForm, { myBoardForm } from '@/components/BoardForm.vue';
 
 @Component({

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Ref, Vue } from 'vue-property-decorator';
-import apireq from '@/utils/apiRequest';
+import { apireq } from '@/utils/apiRequest';
 import PostMetadata from '@/components/PostMetadata.vue';
 import MyButton from '@/components/MyButton.vue';
 import GetPosts from '@/components/GetPosts.vue';

@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import MyButton from '@/components/MyButton.vue';
-import apireq from '@/utils/apiRequest';
+import { apireq } from '@/utils/apiRequest';
 import PostMetadata from '@/components/PostMetadata.vue';
 import Authenticated from '@/components/Authenticated.vue';
 import GetPosts from '@/components/GetPosts.vue';
