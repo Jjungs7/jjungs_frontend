@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6 py-4 md:px-8 md:py-4">
+  <div class="container mx-auto px-6 py-4 lg:px-32 xl:px-64 md:px-8 md:py-4">
     <h1 class="text-3xl font-medium md:text-4xl pt-1 md:pt-3">
       {{ post.Title }}
     </h1>

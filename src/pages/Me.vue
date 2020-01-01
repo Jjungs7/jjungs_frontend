@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-4 md:mx-auto mb-4 md:mb-8">
+  <div class="container mx-auto px-6 py-4 lg:px-32 xl:px-64 md:px-8 md:py-4">
     <h1 class="text-2xl md:text-3xl ml-6 mt-2 mb-2 md:mt-4">Me</h1>
     <div class="category" v-for="category of categories" :key="category.name">
       <h2 class="text-lg border-t pt-2 md:text-2xl md:pt-4 font-semibold">

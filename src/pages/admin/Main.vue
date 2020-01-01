@@ -1,5 +1,5 @@
 <template>
-  <authenticated class="container px-4 mb-4 md:mx-auto md:mb-8">
+  <authenticated class="container mx-auto px-6 py-4 lg:px-32 xl:px-64 md:px-8 md:py-4">
     <h1 class="text-2xl md:text-3xl ml-6 mt-2 mb-2 md:mt-4">Admin</h1>
     <ul class="flex border-b">
       <li :class="isSelectedLi(tab.id)" v-for="tab of tabs" :key="tab.id"

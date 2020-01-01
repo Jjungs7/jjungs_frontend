@@ -1,16 +1,40 @@
 <template>
   <div>
-    <div v-if="isEdit">
-      <label for="id">게시판 ID</label>
-      <input type="text" id="id" v-model="formInput.id" disabled/>
+    <div class="flex flex-wrap -mx-3 my-2">
+      <div class="w-full md:w-1/2 px-3">
+        <label>
+          게시판명
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+           border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
+           focus:border-gray-500" type="text" v-model="formInput.name">
+        </label>
+      </div>
+      <div class="w-full md:w-1/2 px-3" v-if="isEdit">
+        <label>
+          게시판 ID
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+           border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
+           focus:border-gray-500" type="text" v-model="formInput.id" disabled>
+        </label>
+      </div>
     </div>
-    <div class="mt-2">
-      <label for="name">게시판명</label>
-      <input type="text" id="name" v-model="formInput.name"/>
-    </div>
-    <div class="mt-2">
-      <label for="url">링크</label>
-      <input type="text" id="url" v-model="formInput.url"/>
+    <div class="flex flex-wrap -mx-3">
+      <div class="w-full md:w-1/2 px-3">
+        <label>
+          링크
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+           border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
+           focus:border-gray-500" type="text" v-model="formInput.url">
+        </label>
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <label>
+          순서
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+           border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
+           focus:border-gray-500" type="text" v-model="formInput.order">
+        </label>
+      </div>
     </div>
     <div class="mt-2">
       <label for="read">읽기 권한</label>
@@ -23,10 +47,10 @@
       </select>
     </div>
     <div class="text-right">
-      <my-button class="mt-4" @click="$emit('click', formInput)">{{ text1 }}</my-button>
       <my-button class="mt-4" @click="$emit('clickDelete', formInput.id)" v-if="isEdit">
         {{ text2 }}
       </my-button>
+      <my-button class="mt-4" @click="$emit('click', formInput)">{{ text1 }}</my-button>
     </div>
   </div>
 </template>
@@ -41,6 +65,7 @@ export namespace myBoardForm {
   export interface form {
     id: number,
     name: string,
+    order: number,
     url: string,
     read: string,
   }
@@ -63,6 +88,7 @@ export default class BoardForm extends Vue {
   formInput: myBoardForm.form = {
     id: 0,
     name: '',
+    order: 0,
     url: '',
     read: 'PUBLIC',
   };
@@ -71,6 +97,7 @@ export default class BoardForm extends Vue {
   onChange() {
     this.formInput.id = this.board.ID;
     this.formInput.name = this.board.Name;
+    this.formInput.order = this.board.Order;
     this.formInput.url = this.board.URL;
     this.formInput.read = this.board.ReadPermission;
   }
@@ -78,13 +105,7 @@ export default class BoardForm extends Vue {
 </script>
 
 <style scoped>
-input {
-  display: block;
-  @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full;
-  @apply py-2 px-4 text-gray-700 leading-tight;
-}
-
 label {
-  @apply inline text-gray-700 text-lg mb-2 pl-4 pr-32;
+  @apply block uppercase tracking-wide text-gray-700 mb-2 text-lg;
 }
 </style>
