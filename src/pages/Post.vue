@@ -63,6 +63,10 @@ export default class Post extends Vue {
   font-size: 0.9rem;
 }
 
+.tui-editor-contents img {
+  @apply mx-auto
+}
+
 @media (min-width: 768px) {
   .tui-editor-contents {
     font-size: 1.1rem;
