@@ -26,11 +26,14 @@ export function parseDateTime(d: string|number, format: string): string {
   const hours: string = appendZeroInFront(date.getHours());
   const minutes: string = appendZeroInFront(date.getMinutes());
   const seconds: string = appendZeroInFront(date.getSeconds());
-  const fullDate = `${year}-${month}-${day}`;
-  const fullTime = `${hours}:${minutes}:${seconds}`;
 
-  ret = ret.replace('YYYY-MM-DD', fullDate);
-  ret = ret.replace('HH:mm:SS', fullTime);
+  ret = ret.replace('YYYY', year);
+  ret = ret.replace('MM', month);
+  ret = ret.replace('DD', day);
+  ret = ret.replace('HH', hours);
+  ret = ret.replace('mm', minutes);
+  ret = ret.replace('SS', seconds);
+
   return ret;
 }
 
