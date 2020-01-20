@@ -1,4 +1,4 @@
-# Jjungs frontend
+# Jjungs frontend [![travis build status](https://secure.travis-ci.org/jjungs7/jjungs_frontend.png)](https://travis-ci.com/Jjungs7/jjungs_frontend/builds)
 [개인 홈페이지](https://jjungs.kr) 프론트엔드
 
 ## Prerequisites

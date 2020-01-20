@@ -53,10 +53,7 @@ export default class ManageBoards extends Vue {
   createBoard(formInput: myBoardForm.form) {
     apireq('post', '/admin/board', formInput)
       .then((res) => {
-        if (!res.data.data) {
-          console.error(res.data.error);
-          return;
-        }
+        if (!res.data.data) return;
 
         const board: myBoard = res.data.data;
         this.boards.push(board);
@@ -70,10 +67,7 @@ export default class ManageBoards extends Vue {
   updateBoard(formInput: myBoardForm.form) {
     apireq('put', '/admin/board', formInput)
       .then((res) => {
-        if (!res.data.data) {
-          console.error(res.data.error);
-          return;
-        }
+        if (!res.data.data) return;
 
         const editBoard: myBoard = res.data.data;
         const item = this.boards.find(board => board.ID === formInput.id);
@@ -89,10 +83,7 @@ export default class ManageBoards extends Vue {
       id: boardId,
     })
       .then((res) => {
-        if (!res.data.data) {
-          console.error(res.data.error);
-          return;
-        }
+        if (!res.data.data) return;
 
         const item = this.boards.find(board => board.ID === boardId);
         if (item) this.boards.splice(this.boards.indexOf(item), 1);
