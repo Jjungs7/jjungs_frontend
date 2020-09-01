@@ -44,7 +44,7 @@ export default [
       },
       {
         title: 'PoolC',
-        subtitle: 'President / Dec, 2019 ~ Present, Vice-president / Jun, 2018 ~ Dec, 2019',
+        subtitle: 'President / Dec, 2019 ~ Jun, 2020, Vice-president / Jun, 2018 ~ Dec, 2019',
         description: 'Programming club in Yonsei University',
       },
       {
