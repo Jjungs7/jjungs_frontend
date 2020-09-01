@@ -24,8 +24,8 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { apireq } from '../utils/apiRequest';
 import isAdmin from '@/utils/isAdmin';
+import { apireq } from '../utils/apiRequest';
 
 @Component
 export default class Authenticated extends Vue {
