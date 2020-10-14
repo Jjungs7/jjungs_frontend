@@ -108,7 +108,6 @@ export default class PostPost extends Vue {
 
   editorOptions = {
     language: 'ko_KR',
-    hideModeSwitch: true,
     minHeight: '1000px',
     usageStatistics: false,
   };
