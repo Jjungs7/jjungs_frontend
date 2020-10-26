@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6 py-4 lg:px-32 xl:px-64 md:px-8 md:py-4">
+  <div class="container mx-auto mb-6 px-6 py-4 lg:px-32 xl:px-64 md:px-8 md:py-4">
     <h1 class="text-3xl font-medium md:text-4xl pt-1 md:pt-3">
       {{ post.Title }}
     </h1>
@@ -7,10 +7,9 @@
        @click="toComments">댓글 보기</p>
     <post-metadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
     <viewer :value="post.Body"/>
-    <!--div>
-      TODO:
-      <div id="disqus_thread"></div>
-    </div-->
+    <div id="comments" class="mx-auto border-t-2 p-2 pt-4 mt-8 border-gray-600 border-opacity-25">
+      <Disqus :url="this.$route.path"/>
+    </div>
   </div>
 </template>
 
@@ -41,7 +40,10 @@ export default class Post extends Vue {
 
   // methods
   toComments() {
-    alert('댓글기능을 곧 추가하겠습니다!');
+    const commentEl = document.getElementById('comments');
+    if (commentEl) {
+      commentEl.scrollIntoView(false);
+    }
   }
 
   // lifecycle

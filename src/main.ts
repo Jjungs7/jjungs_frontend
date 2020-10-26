@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueDisqus from 'vue-disqus';
 import 'tui-editor/dist/tui-editor.css';
 import 'tui-editor/dist/tui-editor-contents.css';
 import 'codemirror/lib/codemirror.css';
@@ -18,6 +19,9 @@ Vue.config.productionTip = false;
 Vue.component('editor', () => import(/* webpackChunkName: "editor" */'@toast-ui/vue-editor').then(res => res.Editor));
 Vue.component('viewer', () => import(/* webpackChunkName: "viewer" */'@toast-ui/vue-editor').then(res => res.Viewer));
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.use(VueDisqus, {
+  shortname: 'jjungs',
+});
 
 new Vue({
   render: h => h(App),
