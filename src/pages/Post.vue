@@ -6,7 +6,7 @@
     <p class="text-sm md:text-base float-right text-blue-500 cursor-pointer"
        @click="toComments">댓글 보기</p>
     <post-metadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
-    <viewer :value="post.Body"/>
+    <viewer ref="tuiViewer"/>
     <div id="comments" class="mx-auto border-t-2 p-2 pt-4 mt-8 border-gray-600 border-opacity-25">
       <Disqus :url="this.$route.path"/>
     </div>
@@ -14,9 +14,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Ref, Vue } from 'vue-property-decorator';
 import { apireq } from '@/utils/apiRequest';
 import PostMetadata from '@/components/PostMetadata.vue';
+import { Viewer } from '@toast-ui/vue-editor';
 
 @Component({
   components: {
@@ -38,6 +39,8 @@ export default class Post extends Vue {
     Hits: 0,
   };
 
+  @Ref() tuiViewer!: Viewer;
+
   // methods
   toComments() {
     const commentEl = document.getElementById('comments');
@@ -51,6 +54,7 @@ export default class Post extends Vue {
     apireq('GET', `/post/${this.$route.params.post_id}?type=post`)
       .then((res) => {
         this.post = res.data.data;
+        this.tuiViewer.invoke('setMarkdown', this.post.Body);
       });
   }
 }

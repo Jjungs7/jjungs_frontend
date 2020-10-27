@@ -51,10 +51,10 @@
         <my-button @click="uploadFile">업로드</my-button>
       </div>
     </div>
-    <editor :options="editorOptions"
-            height="600px"
-            :previewStyle="editorPreviewStyle"
-            v-model="inputPost.body"/>
+    <editor ref="tuiEditor"
+            :options="editorOptions"
+            height="700px"
+            :previewStyle="editorPreviewStyle"/>
     <div class="text-right">
       <my-button class="my-3" @click="cancel">취소</my-button>
       <my-button class="my-3" @click="doPost">제출</my-button>
@@ -63,10 +63,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Ref } from 'vue-property-decorator';
 import VueClipboard from 'vue-clipboard2';
 import MyButton from '@/components/MyButton.vue';
 import { apireq, fileUpload } from '@/utils/apiRequest';
+import { Editor } from '@toast-ui/vue-editor';
 
 declare type myInputPost = {
   id: number,
@@ -111,6 +112,8 @@ export default class PostPost extends Vue {
     minHeight: '1000px',
     usageStatistics: false,
   };
+
+  @Ref() tuiEditor!: Editor;
 
   // methods
   handleResize() {
@@ -170,6 +173,7 @@ export default class PostPost extends Vue {
   }
 
   createPost() {
+    this.inputPost.body = this.tuiEditor.invoke('getMarkdown');
     apireq('post', '/admin/post', this.inputPost)
       .then((result) => {
         this.$router.push({ name: 'post', params: { post_id: result.data.data.ID } });
@@ -181,6 +185,7 @@ export default class PostPost extends Vue {
   }
 
   editPost() {
+    this.inputPost.body = this.tuiEditor.invoke('getMarkdown');
     apireq('put', '/admin/post', this.inputPost)
       .then((result) => {
         this.$router.push({ name: 'post', params: { post_id: result.data.data.ID } });
@@ -217,6 +222,7 @@ export default class PostPost extends Vue {
           this.inputPost.body = post.Body;
           this.inputPost.tags = post.PostTags.join(' ');
           this.inputPost.description = post.Description;
+          this.tuiEditor.invoke('setMarkdown', this.inputPost.body);
         });
     }
   }
