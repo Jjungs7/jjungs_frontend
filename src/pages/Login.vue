@@ -38,9 +38,9 @@ export default class Login extends Vue {
     })
       .then((res) => {
         if (res.data.data) {
-          const ONE_HALF = 5400 * 1000; // milliseconds
+          const SIX_HOURS = 3600 * 6 * 1000; // milliseconds
           localStorage.setItem('auth.accessToken', res.data.data);
-          localStorage.setItem('auth.expiresAt', ((new Date()).getTime() + ONE_HALF).toString());
+          localStorage.setItem('auth.expiresAt', ((new Date()).getTime() + SIX_HOURS).toString());
           this.$router.push('/admin');
           return;
         }
