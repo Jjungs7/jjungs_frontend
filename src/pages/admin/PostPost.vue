@@ -54,6 +54,7 @@
     <editor ref="tuiEditor"
             :options="editorOptions"
             height="700px"
+            @load="tuiEditorHasLoaded"
             :previewStyle="editorPreviewStyle"/>
     <div class="text-right">
       <my-button class="my-3" @click="cancel">취소</my-button>
@@ -95,6 +96,8 @@ export default class PostPost extends Vue {
     description: '',
   };
 
+  loaded: boolean = false;
+
   boards: myBoard[] = [];
 
   uploadedFiles: string[] = [];
@@ -114,6 +117,14 @@ export default class PostPost extends Vue {
   };
 
   @Ref() tuiEditor!: Editor;
+
+  tuiEditorHasLoaded() {
+    this.loaded = true;
+
+    if (this.inputPost.body) {
+      this.tuiEditor.invoke('setMarkdown', this.inputPost.body);
+    }
+  }
 
   // methods
   handleResize() {
@@ -222,7 +233,10 @@ export default class PostPost extends Vue {
           this.inputPost.body = post.Body;
           this.inputPost.tags = post.PostTags.join(' ');
           this.inputPost.description = post.Description;
-          this.tuiEditor.invoke('setMarkdown', this.inputPost.body);
+
+          if (this.loaded) {
+            this.tuiEditor.invoke('setMarkdown', this.inputPost.body);
+          }
         });
     }
   }

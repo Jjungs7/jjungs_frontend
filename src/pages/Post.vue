@@ -6,7 +6,8 @@
     <p class="text-sm md:text-base float-right text-blue-500 cursor-pointer"
        @click="toComments">댓글 보기</p>
     <post-metadata class="text-xs md:text-sm md:mb-1 pb-2 text-gray-800 border-b" :post="post"/>
-    <viewer ref="tuiViewer"/>
+    <viewer ref="tuiViewer"
+            @load="tuiViewerHasLoaded"/>
     <div id="comments" class="mx-auto border-t-2 p-2 pt-4 mt-8 border-gray-600 border-opacity-25">
       <Disqus :url="this.$route.path"/>
     </div>
@@ -28,7 +29,7 @@ export default class Post extends Vue {
   // states
   post: myPost = {
     BoardID: 0,
-    Body: 'loading...',
+    Body: '',
     CreatedAt: '0',
     DeletedAt: '0',
     Description: '',
@@ -39,7 +40,17 @@ export default class Post extends Vue {
     Hits: 0,
   };
 
+  loaded: boolean = false;
+
   @Ref() tuiViewer!: Viewer;
+
+  tuiViewerHasLoaded() {
+    this.loaded = true;
+
+    if (this.post.Body) {
+      this.tuiViewer.invoke('setMarkdown', this.post.Body);
+    }
+  }
 
   // methods
   toComments() {
@@ -54,7 +65,10 @@ export default class Post extends Vue {
     apireq('GET', `/post/${this.$route.params.post_id}?type=post`)
       .then((res) => {
         this.post = res.data.data;
-        this.tuiViewer.invoke('setMarkdown', this.post.Body);
+
+        if (this.loaded) {
+          this.tuiViewer.invoke('setMarkdown', this.post.Body);
+        }
       });
   }
 }
