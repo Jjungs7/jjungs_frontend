@@ -23,7 +23,7 @@ export default [
         description: '',
       },
       {
-        title: '(Temporarily hidden)',
+        title: 'Yonsei University',
         subtitle: 'Bachelor of Computer Science, 2014 ~ Present',
         description: '',
       },
@@ -35,7 +35,7 @@ export default [
       {
         title: 'Mobile embedded lab',
         subtitle: 'Internship / Jul, 2018 ~ Aug, 2018',
-        description: 'mobed lab in (Temporarily hidden), developed a tool for easier management of BLE beacons',
+        description: 'mobed lab in Yonsei University, developed a tool for easier management of BLE beacons',
       },
       {
         title: 'Market Designers, Inc.',
@@ -45,7 +45,7 @@ export default [
       {
         title: 'PoolC',
         subtitle: 'President / Dec, 2019 ~ Jun, 2020, Vice-president / Jun, 2018 ~ Dec, 2019',
-        description: 'Programming club in (Temporarily hidden)',
+        description: 'Programming club in Yonsei University',
       },
       {
         title: 'Web Development',
