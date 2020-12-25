@@ -6,8 +6,7 @@
         {{ category.name }}
       </h2>
       <div v-for="(item, idx) of category.items" :key="idx">
-        <h3 class="text-base mt-3 md:text-lg md:mt-4 font-medium">
-          {{ item.title }}
+        <h3 class="text-base mt-3 md:text-lg md:mt-4 font-medium" v-html="item.title">
         </h3>
         <h4 class="text-sm md:text-base">
           {{ item.subtitle.replace('#myAge#', myAge()) }}

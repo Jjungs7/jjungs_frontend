@@ -24,7 +24,7 @@ export default [
       },
       {
         title: 'Yonsei University',
-        subtitle: 'Bachelor of Computer Science, 2014 ~ Present',
+        subtitle: 'Bachelor of Computer Science, Mar 3, 2014 ~ Feb 22, 2021',
         description: '',
       },
     ],
@@ -32,6 +32,11 @@ export default [
   {
     name: 'Experience & Skills',
     items: [
+      {
+        title: '<span style="color:#ffcd00">Kakao Corp.</span>',
+        subtitle: 'Infrastructure Engineer, Dec 21, 2020 ~ Present',
+        description: '',
+      },
       {
         title: 'Mobile embedded lab',
         subtitle: 'Internship / Jul, 2018 ~ Aug, 2018',
